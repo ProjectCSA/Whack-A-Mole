@@ -1,15 +1,48 @@
----
-layout: default
-title: Student Blog
----
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Whack A Mole!</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="Whack-A-Mole/style.css">
+</head>
+<body>
+  
+  <h1>Whack-a-mole!</h1>
+  <h1 class="score"> 0</h1>
+  <div class = "start">
+  <button onClick="startGame()">Start!</button>
+  </div>
 
+  <div class="game">
+    <div class="hole hole1">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole2">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole3">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole4">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole5">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole6">
+      <div class="mole"></div>
+    </div>
+  <div class="hole hole7">
+    <div class="mole"></div>
+  </div>
+  <div class="hole hole8">
+    <div class="mole"></div>
+  </div>
+  <div class="hole hole9">
+    <div class="mole"></div>
+  </div>
+</div>
 
-## Build you Home Page here 
-This is about your journey. Start now!!!
-
-## Overview of Hacks, Study and Tangibles
-Blogging in GitHub pages is a way to learn and code at the same time. 
-
-- Plans, Lists, [Scrum Boards](https://clickup.com/blog/scrum-board/) help you to track key events, show progress and record time.  Effort is a big part of your class grade.  Show plans and time spent!
-- [Hacks(Todo)](https://levelup.gitconnected.com/six-ultimate-daily-hacks-for-every-programmer-60f5f10feae) enable you to stay in focus with key requirements of the class.  Each Hack will produce Tangibles.
-- Tangibles or [Tangible Artifacts](https://en.wikipedia.org/wiki/Artifact_(software_development)) are things you accumulate as a learner and coder. 
+<script src="script.js"></script>
+</body>
+</html>
