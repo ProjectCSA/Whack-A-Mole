@@ -10,6 +10,7 @@
   <h1>Whack-a-mole!</h1>
   <h1 class="score"> 0</h1>
   <div class = "start">
+  <input type="text" id="usernameInput" placeholder="Enter your username">
   <button onClick="startGame()">Start!</button>
   </div>
 
