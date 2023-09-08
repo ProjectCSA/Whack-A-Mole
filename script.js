@@ -1,17 +1,26 @@
 const holes = document.querySelectorAll('.hole');
-    const scoreBoard = document.querySelector('.score');
-    const moles = document.querySelectorAll('.mole');
-    const timerDisplay = document.querySelector('.time-elapsed');
-    const livesdoc = document.querySelector('.life-count');
-    const gameover = document.querySelector('.game-over');
-    let lastHole;
-    let gameInProgress = false;
-    let score = 0;
-    let startTime;
-    let lives = 3;
-    let missed = false;
-    let scoresave;
-    let activeMole = null;
+const scoreBoard = document.querySelector('.score');
+const moles = document.querySelectorAll('.mole');
+const timerDisplay = document.querySelector('.time-elapsed');
+const livesdoc = document.querySelector('.life-count');
+const gameover = document.querySelector('.game-over');
+let lastHole;
+let gameInProgress = false;
+let score = 0;
+let startTime;
+let lives = 3;
+let missed = false;
+let finalscore;
+let activeMole = null;
+let username;
+
+    class UserData {
+      constructor  (username, score)
+      {
+        this.username = username;
+        this.score = score;
+      }
+    }
   
   
     function randomTime(min, max) {
@@ -62,7 +71,7 @@ const holes = document.querySelectorAll('.hole');
     }
   
     function startGame() {
-      const username = usernameInput.value;
+      username = usernameInput.value;
       console.log(username);
 
       if (gameInProgress) return; // Prevent starting a new game during an existing game
@@ -76,10 +85,16 @@ const holes = document.querySelectorAll('.hole');
       updateTimerDisplay();
       peepInterval = setInterval(peep, 2000); // Call peep() every 2 seconds
     }
-  
+
+    const userarray = [];
+
     function endGame() {
       gameInProgress = false;
+      finalscore = score;
       gameover.textContent = "Game Over";
+      const getdata = new UserData(username, finalscore);
+      userarray.push(getdata);
+      console.log(userarray);  
     }
   
     function updateTimerDisplay() {
