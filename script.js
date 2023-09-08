@@ -13,6 +13,8 @@ let missed = false;
 let finalscore;
 let activeMole = null;
 let username;
+let userarrayJSON;
+let time;
 
     class UserData {
       constructor  (username, score)
@@ -42,7 +44,17 @@ let username;
         activeMole.classList.remove('up');
       }
       missed = true;
-      const time = randomTime(1000, 2000);
+      if (timerDisplay.textContent <= 3) {
+        time = randomTime(1000, 2000);
+      }
+      else if (timer.timerDisplay.textContent <= 6)
+      {
+        time = randomTime(500, 1000);
+      }
+      else
+      {
+        time = randomTime(250, 500);
+      }
       const hole = randomHole(holes);
       hole.classList.add('up');
       activeMole = hole;
@@ -51,7 +63,8 @@ let username;
         hole.classList.remove('up');
         if (gameInProgress && missed) {
           handleMiss();
-        } else {
+        }
+        else {
           clearTimeout(timer);
         }
       }, time);
@@ -94,7 +107,8 @@ let username;
       gameover.textContent = "Game Over";
       const getdata = new UserData(username, finalscore);
       userarray.push(getdata);
-      console.log(userarray);  
+      userarrayJSON = JSON.stringify(userarray);
+      console.log(userarrayJSON);  
     }
   
     function updateTimerDisplay() {
