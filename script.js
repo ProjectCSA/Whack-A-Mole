@@ -1,47 +1,104 @@
 const holes = document.querySelectorAll('.hole');
-  const scoreBoard = document.querySelector('.score');
-  const moles = document.querySelectorAll('.mole');
-  let lastHole;
-  let timeUp = false;
-  let score = 0;
-
-  function randomTime(min, max) { 
-    return Math.round(Math.random() * (max - min) + min);
-  }
-
-  function randomHole(holes) {
-    const idx = Math.floor(Math.random() * holes.length);
-    const hole = holes[idx];
-    if (hole === lastHole) {
-      return randomHole(holes);
+    const scoreBoard = document.querySelector('.score');
+    const moles = document.querySelectorAll('.mole');
+    const timerDisplay = document.querySelector('.time-elapsed');
+    const livesdoc = document.querySelector('.life-count');
+    let lastHole;
+    let gameInProgress = false;
+    let score = 0;
+    let startTime;
+    let lives = 3;
+    let missed = false;
+    let scoresave;
+    let activeMole = null;
+  
+  
+    function randomTime(min, max) {
+      return Math.round(Math.random() * (max - min) + min);
     }
-    lastHole = hole;
-    return hole;
-  }
+  
+    function randomHole(holes) {
+      const idx = Math.floor(Math.random() * holes.length);
+      const hole = holes[idx];
+      if (hole === lastHole) {
+        return randomHole(holes);
+      }
+      lastHole = hole;
+      return hole;
+    }
+  
+    function peep() {
+      if (activeMole) {
+        activeMole.classList.remove('up');
+      }
+      missed = true;
+      const time = randomTime(1000, 2000);
+      const hole = randomHole(holes);
+      hole.classList.add('up');
+      activeMole = hole;
 
-  function peep() {
-    const time = randomTime(200, 1000);
-    const hole = randomHole(holes);
-    hole.classList.add('up');
-    setTimeout(() => {
-      hole.classList.remove('up');
-      if (!timeUp) peep();
-    }, time);
-  }
+      const timer = setTimeout(() => {
+        hole.classList.remove('up');
+        if (gameInProgress && missed) {
+          handleMiss();
+        } else {
+          clearTimeout(timer);
+        }
+      }, time);
 
-  function startGame() {
-    scoreBoard.textContent = 0;
-    timeUp = false;
-    score = 0;
-    peep();
-    setTimeout(() => timeUp = true, 10000)
-  }
+      hole.addEventListener('click', () => {
+        missed = false;
+        clearTimeout(timer);
+      });    
+    }
+  
+    function handleMiss() {
+      lives--;
+      livesdoc.textContent = lives;
+      if (lives === 0) {
+        endGame();
+      }
+    }
+  
+    function startGame() {
+      const username = usernameInput.value;
+      console.log(username);
 
-  function whack(e) {
-    if(!e.isTrusted) return; 
-    score++;
-    this.parentNode.classList.remove('up');
-    scoreBoard.textContent = score;
-  }
-
-  moles.forEach(mole => mole.addEventListener('click', whack));
+      if (gameInProgress) return; // Prevent starting a new game during an existing game
+      scoreBoard.textContent = 0;
+      lives = 3;
+      score = 0;
+      gameInProgress = true;
+      startTime = Date.now();
+      livesdoc.textContent = lives;
+      peep();
+      updateTimerDisplay();
+      peepInterval = setInterval(peep, 2000); // Call peep() every 2 seconds
+    }
+  
+    function endGame() {
+      gameInProgress = false;
+      timerDisplay.textContent = "Game Over";
+    }
+  
+    function updateTimerDisplay() {
+      if (!gameInProgress) return;
+      const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+      timerDisplay.textContent = `${elapsedTime}`;
+      requestAnimationFrame(updateTimerDisplay);
+    }
+  
+    function whack(e) {
+      if (!e.isTrusted || !gameInProgress) {
+        scorelast = score;
+        return;
+      }
+      score++;
+      this.parentNode.classList.remove('up');
+      scoreBoard.textContent = score;
+    }
+  
+    moles.forEach(mole => mole.addEventListener('click', whack));
+  
+    // Add an event listener to start the game when the "Start!" button is clicked
+    // document.querySelector('.start button').addEventListener('click', startGame);
