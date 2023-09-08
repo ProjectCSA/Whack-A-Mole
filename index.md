@@ -8,9 +8,10 @@
 <body>
   
   <h1>Whack-a-mole!</h1>
+  <div class= "game-over"></div>
   <div class="timer">Time: <span class="time-elapsed">0</span> seconds</div>
   <div class="lives">Lives: <span class="life-count">3</span></div>
-  <h1 class="score"> 0</h1>
+  <div class="score"> 0</div>
   <div class = "start">
   <input type="text" id="usernameInput" placeholder="Enter your username">
   

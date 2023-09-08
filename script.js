@@ -3,6 +3,7 @@ const holes = document.querySelectorAll('.hole');
     const moles = document.querySelectorAll('.mole');
     const timerDisplay = document.querySelector('.time-elapsed');
     const livesdoc = document.querySelector('.life-count');
+    const gameover = document.querySelector('.game-over');
     let lastHole;
     let gameInProgress = false;
     let score = 0;
@@ -78,7 +79,7 @@ const holes = document.querySelectorAll('.hole');
   
     function endGame() {
       gameInProgress = false;
-      timerDisplay.textContent = "Game Over";
+      gameover.textContent = "Game Over";
     }
   
     function updateTimerDisplay() {
